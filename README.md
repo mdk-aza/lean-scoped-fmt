@@ -1,0 +1,111 @@
+# LeanScopedFmt
+
+A conservative formatter for Lean that preserves fragile metaprogramming regions.
+
+## Features
+
+- Formats .lean files from CLI
+- Supports recursive directory formatting
+- Supports --check
+- Supports stdin/stdout usage
+- Preserves explicitly marked regions
+
+Example:
+```Lean
+-- leanscopedfmt: off
+```
+
+```Lean
+-- leanscopedfmt: on
+```
+
+- Skips fragile regions heuristically, such as lines involving:
+  - elab
+  - macro
+  - syntax
+  - quotation syntax
+
+## Status
+
+This is an early-stage formatter focused on safety and idempotence.
+
+Currently it performs only conservative formatting:
+
+- trims trailing whitespace
+- squashes consecutive blank lines
+- preserves fragile metaprogramming regions
+- supports scoped format disable/enable markers
+
+It does not yet aim to be a full AST-based formatter.
+
+## File types
+
+This formatter only processes .lean files.
+
+Other file types such as .md, .json, and .ts are ignored even if explicitly passed.
+
+## Installation
+
+Clone the repository and build with Lake:
+
+git clone https://github.com/YOUR_GITHUB_NAME/lean-scoped-fmt.git
+cd LeanScopedFmt
+lake build
+
+## Usage
+
+Format a file in place:
+
+lake exe leanscopedfmt Main.lean
+
+Format multiple files:
+
+lake exe leanscopedfmt Main.lean LeanScopedFmt/Rules.lean
+
+Format all Lean files recursively under a directory:
+
+lake exe leanscopedfmt .
+
+Check formatting without modifying files:
+
+lake exe leanscopedfmt --check .
+
+Print formatted output to stdout:
+
+lake exe leanscopedfmt --stdout Main.lean
+
+Read from stdin and print to stdout:
+
+cat Main.lean | lake exe leanscopedfmt
+
+## Scoped formatting control
+
+Use these markers to protect fragile regions:
+
+-- leanscopedfmt: off
+elab "#count_rw " t:tacticSeq : command => do
+  let rws := collectRw t.raw
+  logInfo m!"rw count: {rws.size}"
+-- leanscopedfmt: on
+
+## Motivation
+
+Lean metaprogramming code can be fragile under aggressive formatting.
+This tool is designed to be conservative and practical for real workflows.
+
+## Roadmap
+
+- safer token-aware formatting rules
+- import cleanup
+- better region detection
+- configurable ignore support
+- future integration with proof refactoring workflows
+
+## Documentation
+
+- English: README.md
+- 日本語 (Japanese): README.ja.md
+
+## License
+
+MIT
