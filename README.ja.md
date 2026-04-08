@@ -4,7 +4,6 @@ Lean のメタプログラミングコードを壊さないことを重視した
 
 [English README](README.md)
 
----
 
 ## 概要
 
@@ -16,7 +15,6 @@ LeanScopedFmt は「壊さないこと」を最優先に設計された、保守
 また本ツールは、将来的な公式フォーマッタ（例：leanprover-community の format_lean など）に向けた
 プロトタイプ的な位置付けも持っています。
 
----
 
 ## 特徴
 
@@ -29,7 +27,6 @@ LeanScopedFmt は「壊さないこと」を最優先に設計された、保守
 - マーカーによるフォーマット範囲の制御
 - 危険な構文（elab / macro / syntax / quotation）をヒューリスティックにスキップ
 
----
 
 ## フォーマット制御（重要）
 
@@ -43,7 +40,7 @@ elab "#count_rw " t:tacticSeq : command => do
 -- leanscopedfmt: on
 ```
 
----
+
 
 ## 現在の仕様（保守的設計）
 
@@ -56,7 +53,6 @@ elab "#count_rw " t:tacticSeq : command => do
 
 ※ ASTベースの積極的な整形は行いません
 
----
 
 ## 対応ファイル
 
@@ -67,7 +63,6 @@ elab "#count_rw " t:tacticSeq : command => do
 - .md, .json , .ts
 - build / .lake / .git などのディレクトリ
 
----
 
 ## インストール
 
@@ -78,7 +73,6 @@ cd LeanScopedFmt
 lake build
 ```
 
----
 
 ## 使い方
 
@@ -106,7 +100,6 @@ lake exe leanscopedfmt --stdout Main.lean
 ```
 cat Main.lean | lake exe leanscopedfmt
 ```
----
 
 ## モチベーション
 
@@ -126,7 +119,7 @@ LeanScopedFmt はこれに対して：
 また本プロジェクトは、将来的なフォーマッタの在り方（ヒューリスティック vs AST）を探る
 プロトタイプとしての側面も持っています。
 
----
+
 
 ## 設計思想
 
@@ -142,7 +135,6 @@ Leanにおけるフォーマット戦略のプロトタイプ
 
 という側面も持っています。
 
----
 
 ## 想定ユースケース
 
@@ -150,7 +142,6 @@ Leanにおけるフォーマット戦略のプロトタイプ
 - フォーマッタによる破壊を避けたい場合
 - CIでフォーマットチェックを行いたい場合
 
----
 
 ## 今後の予定
 
@@ -159,7 +150,6 @@ Leanにおけるフォーマット戦略のプロトタイプ
 - ignore 設定の拡張
 - ASTベースフォーマットの検討
 - proofリファクタリングとの統合
----
 
 ## ライセンス
 
