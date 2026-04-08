@@ -4,7 +4,7 @@ A conservative formatter for Lean that preserves fragile metaprogramming regions
 
 Japanese version: [README.ja.md](README.ja.md)
 
-##Overview
+## Overview
 
 Lean provides powerful metaprogramming features (e.g., elab, macro, syntax),
 but conventional formatters may break such code.
