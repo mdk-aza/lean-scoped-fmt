@@ -1,6 +1,18 @@
-s# LeanScopedFmt
+# LeanScopedFmt
 
 A conservative formatter for Lean that preserves fragile metaprogramming regions.
+
+Japanese version: [README.ja.md](README.ja.md)
+
+##Overview
+
+Lean provides powerful metaprogramming features (e.g., elab, macro, syntax),
+but conventional formatters may break such code.
+
+LeanScopedFmt is designed with a safety-first philosophy, ensuring fragile code remains intact.
+
+This project also serves as a prototype toward a future official formatter ecosystem
+(e.g., similar to format_lean from leanprover-community).
 
 ## Features
 
@@ -9,24 +21,21 @@ A conservative formatter for Lean that preserves fragile metaprogramming regions
 - Supports --check
 - Supports stdin/stdout usage
 - Preserves explicitly marked regions
+- Skips fragile regions heuristically (elab / macro / syntax / quotation)
 
-Example:
+## Scoped formatting control
+
+You can disable formatting in specific regions using markers:
+
 -- leanscopedfmt: off
+elab "#count_rw " t : command => do
+  let rws := collectRw t.raw
+  logInfo m!"rw count: {rws.size}"
 -- leanscopedfmt: on
 
-- Skips fragile regions heuristically, such as lines involving:
-  - elab
-  - macro
-  - syntax
-  - quotation syntax
+## Current behavior (conservative design)
 
-## Status
-
-This is an early-stage formatter focused on safety and idempotence.
-
-It is intended as a practical prototype and experimental step toward a future official Lean formatter (such as format_lean from leanprover-community).
-
-Currently it performs only conservative formatting:
+This tool prioritizes safety and performs only minimal transformations:
 
 - trims trailing whitespace
 - squashes consecutive blank lines
@@ -85,17 +94,6 @@ Read from stdin and print to stdout:
 cat Main.lean | lake exe leanscopedfmt
 ```
 
-## Scoped formatting control
-
-Use these markers to protect fragile regions:
-```Lean
--- leanscopedfmt: off
-elab "#count_rw " t:tacticSeq : command => do
-  let rws := collectRw t.raw
-  logInfo m!"rw count: {rws.size}"
--- leanscopedfmt: on
-```
-
 ## Motivation
 
 Lean metaprogramming code can be fragile under aggressive formatting.
@@ -104,18 +102,30 @@ This tool is designed to be conservative and practical for real workflows.
 This project also serves as a prototype toward a future official formatter ecosystem.
 Until a robust, fully AST-based formatter becomes standard, this tool aims to provide a safe and usable interim solution.
 
+## Design principles
+
+- Idempotence: repeated runs produce identical output
+- Safety-first: avoid modifying fragile constructs
+- Scoped control: user-defined formatting boundaries
+- CLI-oriented: designed for CI and pipelines
+
+This project also explores the trade-off between:
+
+- safety vs. completeness in formatting
+- heuristic vs. AST-based approaches
+
+## Use cases
+- Lean projects with metaprogramming
+- Avoiding formatter-induced breakage
+- CI formatting checks
+
 ## Roadmap
 
-- safer token-aware formatting rules
-- import cleanup
-- better region detection
-- configurable ignore support
-- future integration with proof refactoring workflows
-
-## Documentation
-
-- English: README.md
-- 日本語 (Japanese): README.ja.md
+- import cleanup (deduplication / sorting)
+- token-aware formatting
+- configurable ignore rules
+- AST-based formatting exploration
+- integration with proof refactoring workflows
 
 ## License
 
