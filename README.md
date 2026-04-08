@@ -98,11 +98,19 @@ cat Main.lean | lake exe leanscopedfmt
 
 ## Motivation
 
-Lean metaprogramming code can be fragile under aggressive formatting.
-This tool is designed to be conservative and practical for real workflows.
+Lean metaprogramming code is inherently fragile under aggressive formatting.
 
-This project also serves as a prototype toward a future official formatter ecosystem.
-Until a robust, fully AST-based formatter becomes standard, this tool aims to provide a safe and usable interim solution.
+Existing approaches often prioritize completeness (e.g., AST-based formatting),
+which can introduce subtle breakages in macros, elaborators, or syntax extensions.
+
+LeanScopedFmt takes a different approach:
+
+- prioritize safety over completeness
+- avoid modifying fragile regions
+- give users explicit control via scoped markers
+
+This project also serves as a prototype toward a future formatter ecosystem,
+exploring the trade-offs between heuristic and AST-based approaches.
 
 ## Design principles
 
