@@ -1,4 +1,4 @@
-# LeanScopedFmt
+s# LeanScopedFmt
 
 A conservative formatter for Lean that preserves fragile metaprogramming regions.
 
@@ -55,38 +55,47 @@ lake build
 ## Usage
 
 Format a file in place:
-
+```Lean
 lake exe leanscopedfmt Main.lean
+```
 
 Format multiple files:
-
+```Lean
 lake exe leanscopedfmt Main.lean LeanScopedFmt/Rules.lean
+```
+
 
 Format all Lean files recursively under a directory:
-
+```Lean
 lake exe leanscopedfmt .
+```
 
 Check formatting without modifying files:
-
+```Lean
 lake exe leanscopedfmt --check .
+```
+
 
 Print formatted output to stdout:
-
+```Lean
 lake exe leanscopedfmt --stdout Main.lean
+```
 
 Read from stdin and print to stdout:
-
+```Lean
 cat Main.lean | lake exe leanscopedfmt
+```
 
 ## Scoped formatting control
 
 Use these markers to protect fragile regions:
-
+```Lean
 -- leanscopedfmt: off
 elab "#count_rw " t:tacticSeq : command => do
   let rws := collectRw t.raw
   logInfo m!"rw count: {rws.size}"
 -- leanscopedfmt: on
+```
 
 ## Motivation
 
