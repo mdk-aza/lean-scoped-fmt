@@ -27,11 +27,13 @@ This project also serves as a prototype toward a future official formatter ecosy
 
 You can disable formatting in specific regions using markers:
 
+```lean
 -- leanscopedfmt: off
 elab "#count_rw " t : command => do
   let rws := collectRw t.raw
   logInfo m!"rw count: {rws.size}"
 -- leanscopedfmt: on
+```
 
 ## Current behavior (conservative design)
 
