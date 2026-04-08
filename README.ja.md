@@ -2,7 +2,7 @@
 
 Lean のメタプログラミングコードを壊さないことを重視した、安全志向のフォーマッタです。
 
-※ 英語版 README: README.md
+[English README](README.md)
 
 ---
 
