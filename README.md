@@ -11,13 +11,8 @@ A conservative formatter for Lean that preserves fragile metaprogramming regions
 - Preserves explicitly marked regions
 
 Example:
-```Lean
 -- leanscopedfmt: off
-```
-
-```Lean
 -- leanscopedfmt: on
-```
 
 - Skips fragile regions heuristically, such as lines involving:
   - elab
@@ -28,6 +23,8 @@ Example:
 ## Status
 
 This is an early-stage formatter focused on safety and idempotence.
+
+It is intended as a practical prototype and experimental step toward a future official Lean formatter (such as format_lean from leanprover-community).
 
 Currently it performs only conservative formatting:
 
@@ -48,9 +45,11 @@ Other file types such as .md, .json, and .ts are ignored even if explicitly pass
 
 Clone the repository and build with Lake:
 
+```
 git clone https://github.com/YOUR_GITHUB_NAME/lean-scoped-fmt.git
 cd LeanScopedFmt
 lake build
+```
 
 ## Usage
 
@@ -101,6 +100,9 @@ elab "#count_rw " t:tacticSeq : command => do
 
 Lean metaprogramming code can be fragile under aggressive formatting.
 This tool is designed to be conservative and practical for real workflows.
+
+This project also serves as a prototype toward a future official formatter ecosystem.
+Until a robust, fully AST-based formatter becomes standard, this tool aims to provide a safe and usable interim solution.
 
 ## Roadmap
 
